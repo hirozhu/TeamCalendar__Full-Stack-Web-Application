@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#searchResultImage{
+	margin: 10px;
+	width: 200px;
+	height: 200px;
+	border-radius: 100px;
+}
+
+#searchResultBox{
+	display: flex;
+	height: 300px;
+	width: 600px;
+	padding: 40px;
+}
+
+#searchResultProfile{
+	padding-right: 100px;
+}

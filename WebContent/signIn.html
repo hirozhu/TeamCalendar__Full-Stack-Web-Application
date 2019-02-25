@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google-signin-client_id" content="635120887250-lcl57h1nsh0i8b5srj75qi0472765ng8.apps.googleusercontent.com">
+		<title>Sign In</title>
+		<link rel="stylesheet" type="text/css" href="overall.css" />
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script>
+		function onSignIn(googleUser) {
+			  var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  var google_id = profile.getId();
+			  var access_token = googleUser.getAuthResponse().access_token;
+			 
+			  var imageUrl = profile.getImageUrl();
+			  var firstName = profile.getGivenName();
+			  var lastName = profile.getFamilyName();
+			  localStorage.setItem('objectToPass', imageUrl);
+			  var name = firstName + " " + lastName;
+			  localStorage.setItem('userName', name);
+			  console.log(imageUrl);
+			  
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+			  if(googleUser.hasGrantedScopes('https://www.googleapis.com/auth/calendar'))
+			  {
+			      console.log("we have already been granted the Calendar scope!")
+			  }
+			  else
+			  {
+			     googleUser.grant({'scope':'https://www.googleapis.com/auth/calendar'});
+			  }
+			  
+			  
+			  
+			  var xhttp = new XMLHttpRequest();
+			  xhttp.open("POST", "SignIn", true);
+			  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset = utf-8");
+			  var email = profile.getEmail();
+			  var requestInfo = "email=" + encodeURIComponent(email)
+			  	+ "&fname=" + encodeURIComponent(firstName)
+			  	+ "&lname=" + encodeURIComponent(lastName)
+			  	+ "&image=" + encodeURIComponent(imageUrl);
+			  console.log("xxx: " + requestInfo);
+			  xhttp.send(requestInfo);
+			  window.location.replace("profile.html");
+			}
+		
+		</script>
+		
+	</head>
+	<body>
+		<div id = "top">
+			
+		</div>
+		<div id = "content">
+			<p>
+				
+				<img id = "image" src=" http://pluspng.com/img-png/sycamore-tree-leaf-png--1000.png" >
+				<h1 id = "title">Sycamore Calendar</h1><br />
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+				<!-- <div class="g-signin2" onclick="onSignIn(googleUser);"></div> -->
+				
+			</p>
+			
+		</div>
+		<div id = "bottom">
+		
+		</div>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google-signin-client_id" content="635120887250-lcl57h1nsh0i8b5srj75qi0472765ng8.apps.googleusercontent.com">
+		
+		<title>Logged In</title>
+		<link rel="stylesheet" type="text/css" href="overall.css" />
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script>
+	
+		function signOut(e) {
+			e.preventDefault();
+			var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		        console.log('User signed out.');
+		      });
+		    window.location.href = "signIn.html";
+		}
+		
+		/* function search(){
+			 var xhttp = new XMLHttpRequest();
+			 xhttp.open("POST", "/Search", true);
+			 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			 
+		} */
+		
+		</script>
+	</head>
+	<body>
+		<div id = "top">
+			<div>
+	    		<div id = "sycCalendar"><a href="loggedIn.html">Sycamore Calendar</a></div>
+	    	</div>
+			<div id ="navi">
+				<form name = "searchForm" method="POST" action="Search">
+	 					<input type="hidden" id = "hiddenParam" name="currentUserEmail">
+						<input id="searchBar" type="text" name="search" placeholder="Search Friends">
+					<input type="submit" value="" style="margin-left: -80px; background-image: url('https://d1b10bmlvqabco.cloudfront.net/attach/jl4eo81c7fx3ds/j6muzqcg5hv40y/jn80vjqgn71r/search.png'); background-repeat:no-repeat; background-size:100% 100%; width: 20px; height: 20px; ">
+				</form>
+				<div id = "profile"><a href="profile.html">Profile</a></div>
+				<div id = "home"><a href = "home.html">Home</a></div>
+			</div>
+			
+		</div>
+		<div id = "content">
+			<p>
+				<img id = "image" src=" http://pluspng.com/img-png/sycamore-tree-leaf-png--1000.png" >
+				<h1 id = "title">Sycamore Calendar</h1><br />
+				<div class="g-signin2" onclick="signOut(event);"></div>
+			</p>
+			
+		</div>
+		<div id = "bottom">
+		
+		</div>
+	</body>
+</html>

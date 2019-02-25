@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Profile</title>
+		<link rel="stylesheet" type="text/css" href="overall.css" />
+		
+		<script>
+			function addEvent(title, startDate, endDate, startTime, endTime){
+				console.log("title: " + title.value);
+				console.log("start date: " + startDate.value);
+				console.log("end date: " + endDate.value);
+				console.log("start time: " + startTime.value); //01:23
+				console.log("end time: " + endTime.value);
+				
+				var error = false;
+				/* if (startTime < endTime){
+					document.getElementById("error").innerHTML += "error message";
+					error = true;
+				} */
+				if (title.value == null || title.value == "" || title.value == "Event Title" ){
+					document.getElementById("error").innerHTML = "Please enter an Event Title. ";
+					error = true;
+				}
+				if (startDate.value == null || startDate.value == "" || endDate.value == null || endDate.value == ""){
+					document.getElementById("error").innerHTML = "Start Date or End Date cannot be empty. ";
+					error = true;
+				}
+				else if (startDate.value > endDate.value){
+					document.getElementById("error").innerHTML = "Start Date cannot be later than End Date. ";
+					error = true;
+				}
+				else if (startDate.value == endDate.value){
+					if (startTime.value == null || startTime.value == "" || endDate.value == null || endDate.value == ""){
+						document.getElementById("error").innerHTML = "Start Time or End Time cannot be empty. ";
+						error = true;
+					}
+					else if (startTime.value > endTime.value){
+						document.getElementById("error").innerHTML = "Start Time cannot be later than End Time. ";
+						error = true;
+					}
+				}
+				else {
+					if (startTime.value == null || startTime.value == "" || endDate.value == null || endDate.value == ""){
+						document.getElementById("error").innerHTML = "Start Time or End Time cannot be empty. ";
+						error = true;
+					}		
+				}
+				/* else if (startTime.value > endTime.value){
+					document.getElementById("error").innerHTML += "Start Time cannot be later than End Time. ";
+					error = true;
+				} */
+				
+				
+				
+				if (error == true){
+					console.log("error found");
+					//window.location.href = "profile.html";
+					return false;
+					
+				}
+				else{
+					console.log("no errors");
+					startTime = startDate.value + "T" +startTime.value + ":00-07:00";
+					endTime = endDate.value + "T" + endTime.value +":00-07:00";
+					console.log(startTime);
+					var event = {
+				    		  'summary': document.eventForm.title.value,
+				    		  'start': {
+				    		    //'dateTime': '2018-09-24T09:00:00-07:00',
+				    		    'dateTime': startTime,
+				    		    'timeZone': 'America/Los_Angeles'
+				    		  },
+				    		  'end': {
+				    		    //'dateTime': '2018-09-24T17:00:00-07:00',
+				    		    'dateTime': endTime,
+				    		    'timeZone': 'America/Los_Angeles'
+				    		  },
+				      };
+				      
+				     var request = gapi.client.calendar.events.insert({
+				    	  'calendarId': 'primary',
+				    	  'resource': event
+				    	});
+				      
+
+				      
+				      request.execute(function(event) {
+				    	  console.log("created");
+				    	  console.table(event);
+				    	  appendPre('Event created: ' + event.htmlLink);
+				    	  //callback(true)
+				    	});
+				      
+				      /* console.log(window.location);
+				      window.location.href = "http://localhost:8080/xubozhu_CSCI201L_Assignment2/profile.html";
+					  console.log(window.location); */
+				      
+					return true;
+
+					  		
+					  
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id = "top">
+			<div>
+    			<div id = "sycCalendar"><a href="loggedIn.html">Sycamore Calendar</a></div>
+    		</div>
+			<div id ="navi">
+				<form name = "searchForm" method="POST" action="Search">
+	 					<input type="hidden" id = "hiddenParam" name="currentUserEmail">
+						<input id="searchBar" type="text" name="search" placeholder="Search Friends">
+					<input type="submit" value="" style="margin-left: -80px; background-image: url('https://d1b10bmlvqabco.cloudfront.net/attach/jl4eo81c7fx3ds/j6muzqcg5hv40y/jn80vjqgn71r/search.png'); background-repeat:no-repeat; background-size:100% 100%; width: 20px; height: 20px; ">
+			</form>
+				<div id = "profile"><a href="profile.html">Profile</a></div>
+				<div id = "home"><a href = "home.html">Home</a></div>
+			</div>
+			
+		</div>
+		
+		<div id = "content">
+			<h1 style="padding-left: 100px;">Home</h1>
+			<div class = "main">
+				<!-- <div class="img_name">image</div>
+				<div class="img_name">fname lname</div> -->
+				<div id = "imageInHome">
+					<div >
+						<img id = "profilePicture" >
+						<script>
+				    		var name = localStorage.getItem('userName');
+				    		document.write("<div style=\"text-align: center; font-size: 30px;\">"+name+"</div>");
+			    		</script>
+					</div>
+			    	<script>
+			    		var imageUrl = localStorage.getItem('objectToPass');
+			    		console.log(imageUrl);
+			    		//localStorage.removeItem('objectToPass');
+			    		document.getElementById("profilePicture").src = imageUrl;
+			    	</script>
+				</div>
+				<div id = "event">
+				<div id = "error"></div>
+					<form id ="eventForm" name = "eventForm" method="POST" action="profile.html" onSubmit ="return addEvent(title, startDate, endDate, startTime, endTime)">
+						
+						<div style="display: flex; justify-content: space-between;">
+							<div>
+								<input class = "inputBox" id ="titleInputBox" type = "text" name = "title" value = "Event Title" /><br />
+								<div class ="inputLine"> 
+									<input class = "inputBox" type = "date" name = "startDate" />
+									<input class = "inputBox" type = "date" name = "endDate" />
+								</div>
+								
+								<div class = "inputLine">
+									<input class = "inputBox" type = "time" name = "startTime" />
+									<input class = "inputBox" type = "time" name = "endTime" />	
+								</div>
+							</div>
+							
+												
+							<input id ="submitButton" type = "submit" name = "submit" />
+						</div>
+						
+					</form>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+      	
+      	<script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '635120887250-lcl57h1nsh0i8b5srj75qi0472765ng8.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyA61CFhVxigqJr8PXA2oxCdad9oYN6BCp8';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar";
+      
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          //authorizeButton.onclick = handleAuthClick;
+          //signoutButton.onclick = handleSignoutClick;
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          //authorizeButton.style.display = 'none';
+          //signoutButton.style.display = 'block';
+          //listUpcomingEvents();
+        } else {
+          //authorizeButton.style.display = 'block';
+          //signoutButton.style.display = 'none';
+        }
+      }
+      
+      /* document.getElementById("eventForm").addEventListener("onSubmit", function () {
+    	  
+      }) */
+
+      	</script>
+      	
+      	<script async defer src="https://apis.google.com/js/api.js"
+      	onload="this.onload=function(){};handleClientLoad()"
+      	onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    	</script>
+      
+      
+		<div id = "bottom">
+		
+		</div>
+	</body>
+</html>

@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+#top{
+	background-color: #362f2d;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	font-family: "American Typewriter", Times, serif;
+}
+#navi{
+	display: flex;
+}
+a:link, a:visited{
+	
+	text-decoration: none;
+	color: white;
+}
+
+#sycCalendar{
+	padding: 10px;
+	padding-left: 50px;
+	font-size: 42px;
+}
+
+#profile{
+	padding: 10px;
+	padding-right: 180px;
+	font-size: 42px;
+}
+
+#home{
+	padding: 10px;
+	padding-right: 50px;
+	font-size: 42px;
+	
+}
+
+#content{
+	height: 500px;
+	background-color: #ffffff;
+	font-family: "American Typewriter", Times, serif;
+}
+
+#image{
+	height: 300px;
+	width: 300px;
+	padding-top: 50px;
+	padding-left: 100px;
+	float: left;
+}
+
+#title{
+	color: #ffffff;
+
+	text-shadow: -2px 0px #FF8000, 0px -2px #FF8000, 3.5px 0px #FF8000, 0 3.5px #FF8000;
+	position: absolute;
+	padding-left: 500px;
+	padding-top: 80px;
+	font-size: 400%;
+	font-family: "Caliri", Times, serif;
+	
+}
+
+div.g-signin2{
+	padding-top: 200px;
+	padding-left: 700px;
+	position: absolute;
+}
+
+#bottom{
+	background-color: #362f2d;
+	height: 80px;
+}
+
+div.main{
+	border: 2px grey solid;
+	width: 900px;
+	height: 438px;
+	position: relative;
+	margin: auto;
+	
+}
+
+div.img_name{
+	font-size: 50px;
+	border: 2px white solid;
+	width: 280px;
+	margin: auto;
+}
+
+#event{
+	background-color: grey;
+	border: 2px grey solid;
+	width: 700px;
+	height: 125px;
+	margin: auto;
+	
+	padding: 10px;
+	padding-top: 15px;
+}
+
+#upcomingEventList{
+	border: 2px grey solid;
+	width: 800px;
+	height: 400px;
+	overflow: scroll;
+}
+
+.tab { 
+       display:inline-block; 
+       margin-left: 170px; 
+}
+
+#eventContent{
+	font-size: 23px;
+	width: 800px;
+/* 	height: 400px; 
+ */}
+
+.inputBox{
+	background-color: grey;
+	border: 2px black solid;
+	color: white;
+	width: 170px;
+	height: 25px;
+	margin: 4px;
+}
+#titleInputBox{
+	width: 400px;
+}
+.inputLine{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#submitButton{
+	margin-top: 50px;
+	margin-right: 100px;
+}
+
+#imageInProfile{
+	float: right;
+	padding-right: 100px;
+	padding-top: 0px;
+	
+}
+#profilePicture{
+	margin: 20px;
+	margin-bottom: 0px;
+	width: 180px;
+	height: 180px;
+	border-radius: 90px;
+}
+
+#bigContentInProfile{
+	display: flex;
+	justify-content: space-between;
+}
+
+#imageInHome{
+ 	padding-bottom: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+
+
+#searchBar{
+	height: 30px;
+	width: 160px;
+	margin: 20px;
+	margin-right: 50px;
+}
